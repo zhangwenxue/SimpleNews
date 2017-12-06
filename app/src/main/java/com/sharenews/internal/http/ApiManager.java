@@ -41,6 +41,14 @@ public class ApiManager {
         return instance;
     }
 
+    public Call<HttpResponse<JuheNews>> getNewsAsync(String type, Callback<HttpResponse<JuheNews>> callback) {
+        HttpParams params = new HttpParams();
+        params.addParam(ApiConstants.paramKey.PARAM_NEWS_TYPE, type);
+        params.addParam(ApiConstants.paramKey.PARAMS_NEWS_KEY, "6d1649705c3f0b127f034b64d0ce6bb8");
+        Call<HttpResponse<JuheNews>> call = mServiceApi.getNews(params.getParams());
+        call.enqueue(callback);
+        return call;
+    }
 
     public Call<HttpResponse<JuheNews>> getNewsAsync(String type, String key, Callback<HttpResponse<JuheNews>> callback) {
         HttpParams params = new HttpParams();

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sharenews.R;
+import com.sharenews.ui.adapter.NewsListFragmentAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,20 +30,19 @@ public class NewsFragment extends BaseNewsFragment {
     public NewsFragment() {
     }
 
-    public static NewsFragment newInstance(String title, String type) {
-        Bundle bundle = new Bundle();
-        bundle.putString("title", title);
-        bundle.putString("type", type);
-        NewsFragment fragment = new NewsFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static NewsFragment newInstance() {
+        return new NewsFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_news, container);
-        ButterKnife.bind(root);
+        View root = inflater.inflate(R.layout.fragment_news, container, false);
+        ButterKnife.bind(this, root);
+        NewsListFragmentAdapter adapter = new NewsListFragmentAdapter(getChildFragmentManager());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         return root;
     }
 }
